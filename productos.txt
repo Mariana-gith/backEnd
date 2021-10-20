@@ -1,0 +1,50 @@
+[
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 1
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 2
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 3
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 4
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 5
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 6
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 7
+  },
+  {
+    "nombreprod": "Calculadora",
+    "precio": 234.56,
+    "foto": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 8
+  }
+]

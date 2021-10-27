@@ -1,67 +1,36 @@
 const express = require('express')
 const app = express()
-const port = 3002
+const port = 8080 
 
-let contenedor = require("./contenedor")
-
+let arrP = []
 
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
-app.get("/nuevo",(req,res)=>{
-
-    console.log(req.query)
-    let objNew ={
-        nombreprod: req.query.nombreprod,
-        precio: req.query.precio,
-        id : 9
-
-    }
-    arr.push(objNew)
-    
-    res.send('Usuario cargado correctamente !')
-})
-
-
+const contenedor = require("./contenedor")
 
 let c = new contenedor.Contenedor("productos.txt")
 
-app.get ("/productos", async (req,res)=>{
-    let allProd=  await c.getAll()
-    res.send(allProd)
-    console.log( 'productos', allProd)
+const apisRoutes = require("./productos")
+app.use("/api/productos",apisRoutes)
+
+app.use("/static",express.static(__dirname + "/public"))
+
+
+app.get("/", (req,res)=>{
+    res.sendFile(__dirname + "/public/index.html")
 })
 
- app.get("/:id", async (req,res)=>{
-     let {id} = req.params
-     let byId = await c.otenerById(id)
-     console.log('por id', byId)
-     res.send( byId )
 
-  
+app.get("/form", (req,res)=>{
+    res.sendFile(__dirname + "/public/form.html")
 })
 
-app.post('/productos', async (req,res)=>{
-    let nuevoProd = await c.save(req.body)
-    res.send('Post is OK!')
-  
-    console.log(nuevoProd)
+app.post("/",  async (req,res)=>{
+    await c.save(req.body)
+    console.log(req.body)
+    res.send('Producto cargado correctamente')
 })
-
-app.put("/:id", async (req,res)=>{
-    let params = req.body
-    params.id = req.params.id
-    console.log(params)
-    await c.upDateById(params)
-    res.send('Producto actulizado correctamente!')
-
-  
-})
- 
-app.delete("/:id", async (req,res)=>{
-    await c.deleteById(req.params.id)
-    res.send('se borro el producto')
-})
-
 
 app.listen(port, ()=>{
     console.log('Server run port ',port)

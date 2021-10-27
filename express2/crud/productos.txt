@@ -27,11 +27,6 @@
   {
     "nombreprod": "calculadora",
     "precio": 25000,
-    "id": 7
-  },
-  {
-    "nombreprod": "calculadora",
-    "precio": 25000,
     "id": 8
   },
   {
@@ -68,5 +63,25 @@
     "nombreprod": "Sacapuntas",
     "precio": 256,
     "id": 15
+  },
+  {
+    "nombreprod": "tetre",
+    "precio": 256,
+    "id": 15
+  },
+  {
+    "nombreprod": "placas",
+    "precio": 256,
+    "id": 16
+  },
+  {
+    "nombreprod": "tijeras",
+    "precio": "540",
+    "id": 16
+  },
+  {
+    "nombreprod": "tijeras",
+    "precio": "540",
+    "id": 17
   }
 ]

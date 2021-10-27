@@ -12,7 +12,7 @@ const obtenerProductos = async (nombre) =>{
 
 const obtenerId = (array, id) =>{
     const obtenerId = array.find(p =>p.id ==id)
-    if(!obtenerId) return null
+    if(!obtenerId) return {error:"producto no encontrado"}
     return obtenerId
 }
 
@@ -28,8 +28,6 @@ class Producto{
         this.precio= 25000
     }
 }
-
-
 
 
 class Contenedor {

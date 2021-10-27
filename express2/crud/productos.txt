@@ -1,0 +1,72 @@
+[
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 1
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 2
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 3
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 4
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 5
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 7
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 8
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 9
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 10
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 11
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 12
+  },
+  {
+    "nombreprod": "calculadora",
+    "precio": 25000,
+    "id": 13
+  },
+  {
+    "nombreprod": "Sacapuntas",
+    "precio": 256,
+    "id": 14
+  },
+  {
+    "nombreprod": "Sacapuntas",
+    "precio": 256,
+    "id": 15
+  }
+]

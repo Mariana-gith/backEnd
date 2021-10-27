@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
+const port = 3002
 
-let arr = require('./arr')
+let contenedor = require("./contenedor")
 
 
 app.use(express.json())
@@ -20,52 +21,49 @@ app.get("/nuevo",(req,res)=>{
     res.send('Usuario cargado correctamente !')
 })
 
-app.get("/users",(req,res)=>{
-    res.json(arr)
+
+
+let c = new contenedor.Contenedor("productos.txt")
+
+app.get ("/productos", async (req,res)=>{
+    let allProd=  await c.getAll()
+    res.send(allProd)
+    console.log( 'productos', allProd)
 })
 
-app.get("/:id",(req,res)=>{
+ app.get("/:id", async (req,res)=>{
+     let {id} = req.params
+     let byId = await c.otenerById(id)
+     console.log('por id', byId)
+     res.send( byId )
+
   
-    let {id} = req.params
-
-    let newArr = arr.filter((p)=>{
-        return p.id === parseInt( id)
-    })
-    console.log(newArr)
-    res.send({data:newArr[0]})
 })
 
-app.post('/productos', (req,res)=>{
+app.post('/productos', async (req,res)=>{
+    let nuevoProd = await c.save(req.body)
     res.send('Post is OK!')
-    let obj = {
-        nombreprod : req.body.nombreprod,
-        precio:req.body.precio,
-        id: req.body.id
-    }
-    arr.push(obj)
-    console.log(req.body)
+  
+    console.log(nuevoProd)
 })
 
-app.put("/:id", (req,res)=>{
-    let index = arr.findIndex(i =>{
-        return i.id == req.params.id
-    })
-    arr[index].nombreprod = req.body.nombreprod
-    arr[index].precio = req.body.precio
-
+app.put("/:id", async (req,res)=>{
+    let params = req.body
+    params.id = req.params.id
+    console.log(params)
+    await c.upDateById(params)
     res.send('Producto actulizado correctamente!')
+
+  
+})
+ 
+app.delete("/:id", async (req,res)=>{
+    await c.deleteById(req.params.id)
+    res.send('se borro el producto')
 })
 
-app.delete("/:id", (req,res)=>{
-    let arrDel = arr.filter(e=>{
-        return e.id != req.params.id
-    })
-    
-    arr = arrDel
-    res.send({messege: 'Producto eliminado correctamente'})
-})
 
-app.listen(3002, ()=>{
-    console.log('Server run port 3002')
+app.listen(port, ()=>{
+    console.log('Server run port ',port)
 })
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./templates/head") %>
+<body>
+   <h1>Lista de Productos</h1> 
+   <table class="table table-success table-striped table-hover">
+    <thead>
+      <tr >
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(function(p){%>
+            <tr >
+                <td scope="col"><%=p.id%></td>
+                <td scope="col"><%=p.nombreprod%><td>
+                <td scope="col">$ <%=p.precio%></td>
+            </tr>
+         <% }) %>
+    </tbody>
+  </table>
+   <a class="btn btn-outline-success" href="/form" role="button">Volver a cargar</a>
+</body>
+</html>

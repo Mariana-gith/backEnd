@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./templates/head") %>
+<body>
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+              <h1 class="center">Ingresa un Producto</h1>
+            <form action="/form" method="post">
+                <div class="row">
+                    <div class="col">
+                      <input type="text" name="nombreprod" class="form-control" placeholder="Nombre del Producto" aria-label="First name">
+                    </div>
+                    <div class="col">
+                      <input type="text" name="precio" class="form-control" placeholder="Precio" aria-label="Last name">
+                    </div>
+                </br>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-outline-primary">Cargar Productos</button>
+                        <a class="btn btn-outline-success" href="/" role="button">Volver</a>
+                    </div>
+                  </div>
+              </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,44 +2,35 @@ const express = require('express')
 let arr = require('./data/productos')
 
 
-const app = express()
 
-app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+let app = express()
 
 
 const port = 8080
 
-app.set("views", "./views")
-app.set("view engine", "ejs")
 
 
-app.get("/", (req,res)=>{
-    res.render("index")
-})
 
-app.get("/form", (req,res)=>{
-    res.render("form")
-})
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
-app.get("/vistaProductos",(req,res)=>{
-    res.render("vistaProductos", {data:arr})
-})
+/* 
+app.set("views", "./viewsEjs")
+app.set("view engine", "ejs") 
+const ejsRoutes = require('./indexEjs')
+app.use("/ejs", ejsRoutes)
+ */
 
-app.post("/form", (req,res)=>{
-    console.log(req.body)
-    let newProd={
-        id: Math.random(),
-        nombreprod : req.body.nombreprod,
-        precio: req.body.precio
-    }
-    arr.push(newProd)
-    res.redirect("/vistaProductos")
-})
+app.set("view engine", "pug")
+app.set("views", "./pug/views")
+const pugRutes = require('./indexPug')
+app.use("/pug", pugRutes)
 
 
 
 app.listen(port, ()=>{
     console.log('Server run port', port)
-})
+}) 
 
+
+ 

@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-    <%- include("./templates/head") %>
-<body>
-  <%- include("./templates/nav")%>
-    <div class="container">
+ {{>nav}}
+ <div class="container">
         <div class="row">
           <div class="col-12">
               <h1 class="center">Ingresa un Producto</h1>
-            <form action="" method="post">
+            <form action="/hbs/form" method="post">
                 <div class="row">
                     <div class="col">
                       <input type="text" name="nombreprod" class="form-control" placeholder="Nombre del Producto" aria-label="First name">
@@ -18,7 +14,7 @@
                 </br>
                     <div class="col-12">
                         <button type="submit" class="btn btn-outline-primary">Cargar Productos</button>
-                        <a class="btn btn-outline-success" href="/ejs" role="button">Volver</a>
+                        <a class="btn btn-outline-success" href="/hbs" role="button">Volver</a>
                     </div>
                   </div>
               </div>
@@ -26,5 +22,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>

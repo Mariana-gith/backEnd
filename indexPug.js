@@ -8,13 +8,6 @@ const router = new Router()
 
 let arr = require('./data/productos')
 
-
-const app = express()
-
-
-
-
-
 router.get("/", (req,res)=>{
     res.render("home")
 })
@@ -28,15 +21,18 @@ router.get("/productos", (req,res)=>{
 })
 
 router.post("/cargar", (req,res)=>{
+    console.log("RECIBI POST /CARGAR")
     console.log(req.body)
     let newProd={
         id: arr.length +1 ,
-        nombreprod : req.body.nombreprod,
-        precio: req.body.precio
+        precio: req.body.precio,
+        nombreprod : req.body.nombreprod
     }
     arr.push(newProd)
-    res.redirect("/productos")
+    res.redirect("/pug/productos")
 })
+
+
 
 
 module.exports = router

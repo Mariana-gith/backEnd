@@ -1,26 +1,24 @@
 const express = require('express')
-const {Router}= express
+const {Router} = express
+let arr = require('./data/productos')
+
 
 
 const router = new Router()
 
 
-let arr = require('./data/productos')
-
-
-
 
 
 router.get("/", (req,res)=>{
-    res.render("index")
+    res.render("home")
 })
 
-router.get("/form", (req,res)=>{
+router.get("/form",(req,res)=>{
     res.render("form")
 })
 
-router.get("/vistaProductos",(req,res)=>{
-    res.render("vistaProductos", {data:arr})
+router.get("/productos", (req,res)=>{
+    res.render("productos",{data: arr} )
 })
 
 router.post("/form", (req,res)=>{
@@ -31,9 +29,8 @@ router.post("/form", (req,res)=>{
         precio: req.body.precio
     }
     arr.push(newProd)
-    res.redirect("/ejs/vistaProductos")
-
+    res.redirect("/hbs/productos")
 })
 
 
-module.exports=router
+module.exports = router

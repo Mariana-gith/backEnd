@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
     knex.schema
         .createTable("usuarios",(table)=>{
@@ -17,6 +16,6 @@ exports.up = function(knex) {
   
 };
 
-exports.down = function(knex) {
+exports.down = function(knex) {n
   
 };

@@ -1,24 +1,27 @@
 const express = require('express')
-
+const Contenedor = require('./contenedorKanex')
+const contenedorKnex = require('./contenedorKanex')
 
 
 const app = express()
 app.use(express.json())
 
-
 const knex = require('./knexfile')
+
+const contenedor = new Contenedor("Productos", knex);
 
 app.post("/", (req,res)=>{
     let data ={
         nombre:req.body.nombre,
-        email:req.body.email,
-        contraseña: req.body.contraseña
-       }
-    console.log( 'data:',req.body.contraseña)
-    knex("usuarios")
-        .insert(data)
-        .then(()=>{
-            res.send('Registro Ok!!')
+        descripcion:req.body.descripcion,
+        precio: req.body.precio
+    }
+    console.log( 'data:',req.body)
+
+    contenedor.save(data)
+    .then((data) => {
+        console.log(data)
+        res.send('Registro Ok!!')
     })
     .catch((err)=>{
         res.send(err)
@@ -26,22 +29,18 @@ app.post("/", (req,res)=>{
 })
 
 app.get("/all",(req,res)=>{
-    knex
-    .from("usuarios")
-    .select("*")
-    .orderBy("id","desc")
+    contenedor.getAll()
     .then((json)=>{
       console.log("cargado")
       res.send({data:json})
     })
+    .catch( err => res.send(err))
 })
 
 
 
-
 app.get("/:id", (req,res)=>{
-    knex.from("usuarios")
-    .where({id: req.params.id})
+    contenedor.otenerById(req.params.id)
     .then((json)=>{
         res.send({data:json})
     })
@@ -53,9 +52,7 @@ app.get("/:id", (req,res)=>{
 //Actualizar
 
 app.put("/actualizar/:id",(req,res)=>{
-    knex("usuarios")
-        .where({id:req.params.id})
-        .update({nombre:req.body.nombre,enail:req.body.enail, contraseña: req.body.contraseña})
+    contenedor.upDateById(req.params.id)
         .then((json)=>{
             console.log("actualizado")
             res.send({data:json})
@@ -68,9 +65,7 @@ app.put("/actualizar/:id",(req,res)=>{
 //Borrar
 
 app.delete("/borrar/:id",(req,res)=>{
-    knex("usuarios")
-        .where({id:req.params.id})
-        .del()
+   contenedor.deleteAll()
         .then((json)=>{
             res.send({data:'User Eliminado'})
         })
@@ -80,6 +75,7 @@ app.delete("/borrar/:id",(req,res)=>{
 })
 
 
-app.listen(3005, ()=>{
-    console.log("server ok!!",3005)
+
+app.listen(3000,()=>{
+    console.log('server OK!!',3000)
 })

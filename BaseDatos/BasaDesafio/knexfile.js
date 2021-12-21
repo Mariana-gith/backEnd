@@ -1,15 +1,16 @@
 // Update with your config settings.
 
-const knex = require('knex')
+const knex = require("knex");
 
-const config = {
+//const config = {
+module.exports = {
 
   development: {
     client: 'sqlite3',
     connection: {
-      filename: './data/ecommerce.db3'
+      filename: './ecommerceKnex.db3'
     },
-
+    
     useNullAsDefault:true,
 
     pool:{
@@ -17,9 +18,6 @@ const config = {
       max:8
     }
   }
-}
+};
 
-const db=  knex(config.development)
-
-module.exports=db
-
+//module.exports = knex(config.development)

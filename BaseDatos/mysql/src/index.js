@@ -42,10 +42,11 @@ app.get("/:id", (req,res)=>{
     .where({id: req.params.id})
     .then((json)=>{
         res.send({data:json})
+    })
     .catch((err)=>{
         res.send(err)
     })
-    })
+    
 })
 
 //Actualizar

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./templates/head") %>
+<body>
+  <%- include("./templates/nav")%>
+   <h1>Lista de Productos</h1> 
+    <table class="table table-success table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">NOMBRE</th>
+          <th scope="col">PRECIO</th>
+          <th scope="col">FOTO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.forEach(function(p){%>
+        <tr>
+          <th scope="row"><%=p.id%> </th>
+          <td><%=p.nombre%>
+            <%if(p.nombre === "") {%>
+              <p>No se encontro el producto</p>
+            <%}%></td>
+          <td> $<%=p.precio%></td>
+          <td  ><img src="<%=p.foto%>"  width="100"></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+</html>

@@ -1,6 +1,4 @@
-const console = require('console')
 const express = require('express')
-const { json } = require('express/lib/response')
 
 const app = express()
 const http = require('http')
@@ -11,13 +9,48 @@ const io = require('socket.io')(server)
 const knex = require("./knexfile")
 const knexMysql = require('./src/db')
 
+const {faker} = require("@faker-js/faker")
+
+
+
 app.use(express.json())
+app.use(express.urlencoded({extended:false}))
+
 
 const contenedorProductos = new Contenedor("productos", knexMysql)
 
 let msj= []
 
-app.use(express.static(__dirname+"/public"))
+
+
+app.set("views", "./views")
+app.set("view engine","ejs")
+
+app.get("/home", (req, res)=>{
+    res.render("home")
+})
+
+
+const arrayPersonas = []
+console.log(arrayPersonas)
+
+
+app.get("/api/productos-test",(req,res)=>{
+    for( let i=0 ; i< 5; i++){
+        arrayPersonas.push({
+            nombre: faker.commerce.product(),
+            precio:faker.commerce.price(),
+            foto:faker.image.imageUrl(),
+            id:i+1           
+        })
+    }
+    res.render("tabla", {data:arrayPersonas})
+
+
+})
+
+
+// app.use(express.static(__dirname+"/public"))
 
 app.get("/hola",(req,res)=>{
     res.send("Todo ok por aca")
@@ -25,17 +58,13 @@ app.get("/hola",(req,res)=>{
 
 // websocket
 io.on("connection",(socket)=>{
-
     socket.on("menssege_back", (data)=>{
         console.log("Estoy en msg back",data)
     })
-
     socket.on("msn__client", async (data)=>{
       await knex("mensajes").insert(data)
-       
-       io.sockets.emit("menssenge_client",msj)
+      io.sockets.emit("menssenge_client",msj) 
     })
-
 });
 
 
@@ -78,6 +107,8 @@ app.get("/:id",(req,res)=>{
     
 })
 
+
+
 //Borrar por ID
 app.delete("/del/:id",(req,res)=>{
     let id = req.params.id
@@ -119,6 +150,8 @@ app.put("/upDate/:id",(req,res)=>{
         res.send(err)
     })
 })
+
+
 
 
 

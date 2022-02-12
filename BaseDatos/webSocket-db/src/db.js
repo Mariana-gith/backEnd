@@ -31,6 +31,7 @@ const knex = require('knex')({
             console.log(err)
         })  
 
+        
 
 
   module.exports = knex

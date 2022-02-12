@@ -9,36 +9,38 @@ module.exports = class Contenedor {
         this.knex = knexConfig
     }
 
-    async save(data){
-        return await this.knex(this.tabla).insert(data)
+    save(data){
+        return this.knex(this.tabla).insert(data)
     }
 
-   async otenerById(id) {
-        return await this.knex.from(this.tabla)
+   otenerById(id) {
+        return this.knex.from(this.tabla)
         .where({id})
     }
 
-    async getAll (){
-      return await  this.knex.from(this.tabla)
+    getAll (){
+      return this.knex.from(this.tabla)
         .orderBy("id","desc")
     }
 
-    async deleteAll(){
-        return await this.knex(this.tabla)
+    deleteAll(){
+        return this.knex(this.tabla)
         .del()
     }
 
-    async deleteById(id){     
-      return await this.knex(this.tabla)
+    deleteById(id){     
+      return this.knex(this.tabla)
         .where({id})
         .del()
         
     }
 
-    async upDateById (id,nuevoProd){
-        return await this.knex(this.tabla)
+    upDateById (id,nuevoProd){
+        return this.knex(this.tabla)
         .where({id})
         .update(nuevoProd)
     }
+
+    
         
 }

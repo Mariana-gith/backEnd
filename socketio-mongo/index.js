@@ -1,22 +1,29 @@
-require("./mongo/mongo")
+
 const express = require('express')
-const { json } = require('express/lib/response')
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./db/appwhat-d79c3-firebase-adminsdk-gnyqd-c0dc630a5c.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL:"http://appwhat.firebaseio.com"
+});
+
+const db = admin.firestore()
 const app = express()
 const http = require('http')
 const port = process.env.PORT || 3001
 const server = http.createServer(app)
 const io = require('socket.io')(server)
 
-const Mensaje = require("./mongo/models/mensaje")
+
 
 const {faker} = require("@faker-js/faker")
 app.use(express.json())
 
 
-const {normalize,schema}= require('normalizr')
-const util= require('util')
-const { text } = require("express")
 
+const normalizador = require("./FuncNormalizador")
 
 app.set("views", "./views")
 app.set("view engine","ejs")
@@ -24,15 +31,18 @@ app.set("view engine","ejs")
 app.get("/home", (req, res)=>{
     res.render("home")
 })
-const arrayPersonas = []
+let arrayPersonas = []
 app.get("/api/productos-test",(req,res)=>{
     for( let i=0 ; i< 5; i++){
-        arrayPersonas.push({
-            nombre: faker.commerce.productName(),
-            precio:faker.commerce.price(),
-            foto:faker.image.technics(),
-            id:i+1           
-        })
+        if(arrayPersonas.length=== 5){
+          arrayPersonas=[]
+        }
+            arrayPersonas.push({
+                nombre: faker.commerce.productName(),
+                precio:faker.commerce.price(),
+                foto:faker.image.technics(),
+                id:i+1           
+            })
     }
     res.render("tabla", {data:arrayPersonas})
 })
@@ -40,16 +50,17 @@ app.get("/api/productos-test",(req,res)=>{
 
 app.use(express.static(__dirname+"/public"))
 
+const query= db.collection('Mensajes')
 
 // websocket
 
-io.on("connection", async(socket)=>{
-    let msj= await Mensaje.find({})
+io.on("connection",(socket)=>{
+    
     socket.on("menssege_back", (data)=>{
         console.log("Estoy en msg back",data)
     })
     socket.on("msn__client", async (data)=>{
-        let mensaje = new Mensaje({
+        let mensaje ={
             author: {
                 id: data.id, 
                 nombre: data.nombre, 
@@ -59,31 +70,21 @@ io.on("connection", async(socket)=>{
                 avatar: 'url avatar (foto, logo) del usuario'
             },
             text:data.text
-        })
-        msj.push(mensaje)
-
-        let objetOrigin = {id:"007", mensajes: msj}
-
-        const autorSchema = new schema.Entity("autor");
-        const textoSchema = new schema.Entity('texto')
-        const mensajeSchema = new schema.Entity("mensajes", {
-           autor: autorSchema,
-           texto: textoSchema
-        });
-
-        const normalizadorChat = normalize(objetOrigin,mensajeSchema) 
-        const print = (obj) =>{
-            console.log(util.inspect(obj,false,12,true))
         }
-        print(normalizadorChat)
-        const guardado = await mensaje.save()
-        io.sockets.emit("menssenge_client",msj) 
+       
+        await query.add(mensaje)
+        const result = []
+        const snapshot = await query.get();
+        snapshot.forEach(doc => {
+            result.push({ id: doc.id, ...doc.data() })})
+        
+        let objetOrigin = {id:"007", mensajes: result}
+        let norm= normalizador(objetOrigin)
+
+        const objetOriginal=JSON.stringify(objetOrigin).length
+        io.sockets.emit("menssenge_client",result,norm,objetOriginal)
     })
 });
-
-
-
-
 
 
 

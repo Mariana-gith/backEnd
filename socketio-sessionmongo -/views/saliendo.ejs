@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("./templates/head") %>
+</head>
+<body>
+    <%- include("./templates/nav")%>
+    <div class="container">
+        <div class="container p-5">
+            <div class="jumbotron">
+                <h1 class="display-4">Hasta Luego... <%- bienvenid %></h1>
+            </div>
+        </div>
+    </div>
+    
+    <script> 
+         window.setTimeout(function() {
+            window.location.href = '/logout';
+        }, 3000);
+    </script>
+</body>
+</html>
